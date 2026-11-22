@@ -125,13 +125,15 @@ const SELF_STEPS: Step[] = [
   },
   {
     emoji: "📤",
-    title: "Send filen til printeren",
+    title: "Lagre G-code og last den opp her",
     who: "deg",
     body: (
       <>
-        Trykk <strong>Print plate</strong> og velg <strong>Upload</strong> (bare last opp). Da får du sjekklisten i portalen før printeren starter.
+        I OrcaSlicer: trykk på pilen ved siden av <strong>Print plate</strong> og velg <strong>Export G-code file</strong>. Lagre filen. Gå så til
+        siden din her og <strong>dra filen inn i «Last opp fil»</strong>, eller trykk på knappen.
       </>
     ),
+    tips: ["Har OrcaSlicer koblet seg til printeren? Da kan du også trykke Print plate → Upload, så havner filen rett på siden din."],
   },
   {
     emoji: "🚀",
@@ -139,8 +141,8 @@ const SELF_STEPS: Step[] = [
     who: "deg",
     body: (
       <>
-        Filen ligger nå <strong>øverst</strong> under «Hva vil du printe?» med et <strong>Ny!</strong>-merke. Sjekk at platen er tom, kryss av og trykk{" "}
-        <strong>Start utskrift</strong>.
+        Når filen er lastet opp, åpnes startvinduet av seg selv. Du finner den også <strong>øverst</strong> under «Hva vil du printe?» med et{" "}
+        <strong>Ny!</strong>-merke. Sjekk at platen er tom, kryss av og trykk <strong>Start utskrift</strong>.
       </>
     ),
   },

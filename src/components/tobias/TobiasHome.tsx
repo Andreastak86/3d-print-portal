@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { LibraryItem, TobiasView } from "@/lib/portal/types";
 import { canTobiasStart } from "@/lib/portal/policy";
 import { apiGet, apiSend } from "@/lib/api";
@@ -18,6 +18,7 @@ import { Confetti } from "./Confetti";
 import { LibraryGrid } from "./LibraryGrid";
 import { PrintHero } from "./PrintHero";
 import { StartDialog } from "./StartDialog";
+import { UploadBox } from "./UploadBox";
 
 const VIEW_REFRESH_MS = 60_000;
 
@@ -36,13 +37,22 @@ export function TobiasHome() {
   const [view, setView] = useState<TobiasView | null>(null);
   const [selected, setSelected] = useState<LibraryItem | null>(null);
   const [now, setNow] = useState<Date | null>(null);
+  const [viewVersion, setViewVersion] = useState(0);
+  /** After an upload: open the start dialog for this item as soon as the list has it. */
+  const openAfterLoad = useRef<string | null>(null);
 
-  // Library + settings: refetch when history changes (times printed) and periodically.
+  // Library + settings: refetch when history changes (times printed), after uploads and periodically.
   useEffect(() => {
     const controller = new AbortController();
     const load = async () => {
       try {
-        setView(await apiGet<TobiasView>("/api/tobias", controller.signal));
+        const next = await apiGet<TobiasView>("/api/tobias", controller.signal);
+        setView(next);
+        if (openAfterLoad.current) {
+          const item = next.library.find((i) => i.id === openAfterLoad.current);
+          if (item) setSelected(item);
+          openAfterLoad.current = null;
+        }
       } catch {
         // keep the old view
       }
@@ -53,7 +63,7 @@ export function TobiasHome() {
       controller.abort();
       clearInterval(t);
     };
-  }, [historyVersion, ready]);
+  }, [historyVersion, ready, viewVersion]);
 
   // Clock for greeting and time window (client only, avoids hydration differences).
   useEffect(() => {
@@ -127,6 +137,17 @@ export function TobiasHome() {
           </div>
           {blockedReason && ready && <p className="rounded-full bg-surface-2 px-4 py-2 text-sm text-muted">{blockedReason}</p>}
         </div>
+        {settings?.canStartAnyFile && (
+          <div className="mb-6">
+            <UploadBox
+              onUploaded={(path) => {
+                toast("Filen er lastet opp! 🎉");
+                openAfterLoad.current = `file:${path}`;
+                setViewVersion((v) => v + 1);
+              }}
+            />
+          </div>
+        )}
         {view ? (
           <LibraryGrid items={view.library} onSelect={setSelected} />
         ) : (

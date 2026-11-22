@@ -68,8 +68,8 @@ function SettingsEditor({ initial, config }: { initial: PortalSettings; config: 
               onChange={(v) => set("canStart", v)}
             />
             <Toggle
-              label="Kan starte alle filer på printeren"
-              description="Ikke bare godkjente. Det Tobias laster opp fra OrcaSlicer, dukker opp på siden hans med en gang."
+              label="Kan starte alle filer og laste opp egne"
+              description="Ikke bare godkjente. Tobias får en «Last opp fil»-boks, og alt han laster opp (også fra OrcaSlicer) kan han starte med en gang."
               checked={s.canStartAnyFile}
               onChange={(v) => set("canStartAnyFile", v)}
             />

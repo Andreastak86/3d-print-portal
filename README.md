@@ -9,7 +9,7 @@ Vår egen webportal for Elegoo Neptune 4 Plus (Klipper + Moonraker). Kjører lok
 **Tobias (`/`, ingen innlogging)**
 - Galleri med godkjente utskrifter (bilde, tid, vekt) og filter på kategori
 - Start med sjekkliste: «platen er tom», pluss «en voksen er til stede» hvis det er slått på
-- **Selvbetjening (valgfritt):** med «Kan starte alle filer» ser Tobias alle filene på printeren. Det han laster opp fra OrcaSlicer, havner øverst med «Ny!»-merke, uten godkjenning
+- **Selvbetjening (valgfritt):** med «Kan starte alle filer og laste opp egne» får Tobias en **«Last opp fil»**-boks (dra-og-slipp av .gcode fra OrcaSlicer) og ser alle filene på printeren. Nye filer havner øverst med «Ny!»-merke, og startvinduet åpnes rett etter opplasting. Filene lagres i mappen `tobias/` på printeren
 - Stor live visning med fremdriftsring, når den blir ferdig, «Visste du?»-fakta og konfetti når noe blir ferdig
 - Pause/fortsett og knapper for **begge lysene**, dyselyset og topplyset (hvis admin tillater det), og en melding fra admin
 - Liste over det han har printet
